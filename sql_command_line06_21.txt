@@ -1,0 +1,106 @@
+select c.customername 
+from customers c, orders o 
+WHERE
+c.customerNumber = o.customerNumber
+group by o.customernumber 
+HAVING count(o.customernumber) = 
+(select Max(cnt) from 
+(select count(*) cnt from orders 
+group  by customernumber) x)
+----
+select customername
+from customers, orders
+where
+ordernumber = (select max(ordernumber) from orders) and
+customers.customernumber = orders.customerNumber
+
+---
+select count(customerName)
+from customers
+where country = 'UK'
+------
+select productName
+from products
+WHERE MSRP = (SELECT Max(MSRP)FROM products)
+
+---
+select customerName
+from customers
+where country = 'USA' or
+country = 'France' or
+country = 'Canada' or
+country = 'UK' or
+country = 'Italy'
+
+---
+select DISTINCT status
+from orders
+
+---
+select DISTINCT country
+from customers  
+ORDER BY `customers`.`country` ASC
+
+---
+select countries
+from customers
+---
+SELECT productline
+from productlines
+where textDescription like '%state of the art%'
+
+---
+SELECT customerName
+from customers
+where customerName
+!like = %a%
+
+---
+SELECT e2.firstName,  e2.lastName
+FROM employees e1 , employees e2
+where
+e1.reportsTO = e2.employeeNumber AND
+e1.firstName = 'Anthony' AND
+e1.lastName = 'Bow'
+
+
+---
+
+SELECT e1.firstName,  e1.lastName
+FROM employees e1 JOIN employees e2
+ON
+(e1.reportsTO = e2.employeeNumber)
+AND
+e2.firstName = 'Anthony' AND
+e2.lastName = 'Bow'
+
+--
+SELECT e1.firstName,  e1.lastName
+FROM employees e1 ,employees e2
+where
+e1.reportsTO=e2.employeeNumber AND
+e2.firstName = 'Anthony' AND
+e2.lastName = 'Bow'
+
+
+
+----
+select firstName, lastName
+from employees , offices , customers
+where 
+employees.officeCode=offices.officeCode 
+and 
+offices.country = customers.country
+
+----
+select firstName, lastName
+from employees , offices , customers
+where 
+employees.officeCode=offices.officeCode 
+and 
+offices.country = customers.country
+group by lastname,firstname
+
+-----
+
+

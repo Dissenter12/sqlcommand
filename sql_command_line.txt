@@ -1,0 +1,84 @@
+cd C:\Users\Day4\Desktop\xampp\mysql\bin
+
+create database <database name>;
+use <database name>;
+create table <table name>;
+
+create table users(
+id int not null auto_increment,
+username varchar(255) not null,
+password varchar(20) not null,
+primary key (id));
+
+show tables;
+show users;
+
+create table artists(
+id int not null auto_increment,
+name varchar(255) not null unique,
+primary key (id));
+
+create table albums(
+id int not null auto_increment,
+name varchar(255) not null,
+year year(4),
+artist_id INT,
+primary key(id),
+foreign key(artist_id)  REFERENCES artists(id)
+);
+
+create table playlists(
+id int not null auto_increment,
+date_created timestamp default current_timestamp,
+user_id int,
+primary key(id),
+foreign key(user_id)  REFERENCES users(id)
+on update cascade
+on delete set null
+);
+
+
+create table songs(
+id int not null auto_increment,
+title varchar(255) not null,
+length int,
+genre varchar(255),
+album_id int,
+primary key(id),
+foreign key(album_id)  REFERENCES albums(id)
+on update cascade
+on delete set null
+);
+
+
+create table songs_playlists(
+id int not null auto_increment,
+song_id int,
+playlist_id int,
+primary key(id),
+foreign key(song_id)  REFERENCES songs(id)
+on update cascade
+on delete set null,
+foreign key(playlist_id)  REFERENCES playlists(id)
+on update cascade
+on delete set null
+);
+
+
+alter table artist rename to artists;
+
+drop table <table name>; <==== to delete a table
+
+insert into table(column1,column2,column3,...)
+values(val1,val2,val3,...);
+
+insert into artists(name)
+values('rivermaya');
+
+insert into albums(name,year,artist_id)
+values('Psy 6','2012','2'),('Trip','1996','1');
+
+
+insert into songs(title,lenght,genre,album_id)
+values('Gangnam style','253','k-pop','1'),('Kundiman','234','OPM','2'),('Kisapmata','279','OPM','2');
+
